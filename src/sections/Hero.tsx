@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import React from "react";
 import Image from "next/image";
 import Button from "@/components/Shared/Button";
@@ -90,23 +90,18 @@ const techLogos = [
   }
 ];
 
-const floatingVariants = {
+const floatingVariants: Variants = {
   initial: { scale: 0, opacity: 0 },
-  animate: (i: number) => ({
+  animate: {
     scale: 1,
     opacity: 1,
     y: [0, -8, 0],
     transition: {
-      scale: { type: "spring", stiffness: 80, delay: i * 0.12 },
-      opacity: { delay: i * 0.12 },
-      y: {
-        repeat: Infinity,
-        duration: 3 + (i % 3) * 0.5,
-        ease: "easeInOut",
-        delay: i * 0.15
-      }
+      repeat: Infinity,
+      duration: 3,
+      ease: "easeInOut",
     }
-  })
+  }
 };
 
 export default function Hero() {
