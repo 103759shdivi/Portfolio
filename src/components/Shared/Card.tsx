@@ -8,6 +8,7 @@ interface CardProps {
   glowOnHover?: boolean;
   animateScroll?: boolean;
   delay?: number;
+  style?: React.CSSProperties;
 }
 
 export default function Card({
@@ -16,6 +17,7 @@ export default function Card({
   glowOnHover = true,
   animateScroll = true,
   delay = 0,
+  style,
 }: CardProps) {
   const base: React.CSSProperties = {
     borderRadius: "1rem",
@@ -27,6 +29,8 @@ export default function Card({
     transition: "transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease",
   };
 
+  const mergedStyle: React.CSSProperties = { ...base, ...style };
+
   const hoverClass = glowOnHover ? "card-hover-glow" : "";
 
   if (animateScroll) {
@@ -36,7 +40,7 @@ export default function Card({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] }}
-        style={base}
+        style={mergedStyle}
         className={`${hoverClass} ${className}`}
       >
         {children}
@@ -45,7 +49,7 @@ export default function Card({
   }
 
   return (
-    <div style={base} className={`${hoverClass} ${className}`}>
+    <div style={mergedStyle} className={`${hoverClass} ${className}`}>
       {children}
     </div>
   );
